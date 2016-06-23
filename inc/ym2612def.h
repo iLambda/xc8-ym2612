@@ -214,7 +214,7 @@
 #define YM2612_REG_CH1OP4_UNDEF       0x9C
 // CH2 REGISTERS
 #define YM2612_REG_CH2OP4_DETMUL      0x3D
-#define YM2612_REG_CH2OP4_DT1         0x3D
+#define YM2612_REG_CH2OP4_DT1         0x3D  
 #define YM2612_REG_CH2OP4_MUL         0x3D
 #define YM2612_REG_CH2OP4_TOTLVL      0x4D
 #define YM2612_REG_CH2OP4_TL          0x4D
