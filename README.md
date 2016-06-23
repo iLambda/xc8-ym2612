@@ -4,6 +4,13 @@
 
 This C library for PIC18F allows you to control a [Yamaha YM2612](https://en.wikipedia.org/wiki/Yamaha_YM2612) in order to make sound.
 
+## how does it work ?
+
+The chip has internal registers that describe how the sound is generated. A list of different registers can be found on the [SEGA2.DOC file](http://www.smspower.org/maxim/Documents/YM2612#reg22).
+
+## api
+
+
 
 ## technical data
 
@@ -26,3 +33,8 @@ This C library for PIC18F allows you to control a [Yamaha YM2612](https://en.wik
 | 22  | A.Vcc  | Analog VCC terminal for DAC |
 | 23  | Vcc  | +5V power terminal |
 | 24  | CLK | Master clock ||
+
+## sources
+
+* [Wikipedia, *Yamaha YM2612*](https://en.wikipedia.org/wiki/Yamaha_YM2612)
+* [Maxim's world of stuff, *SEGA2.DOC transcription*](http://www.smspower.org/maxim/Documents/YM2612#reg22)
