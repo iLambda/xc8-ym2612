@@ -8,10 +8,12 @@ static unsigned char* datadir = NULL;
 
 static unsigned char selreg = 0;
 
-void glue2612_set1reg(unsigned char reg, unsigned char val);
-void glue2612_set2reg(unsigned char reg, unsigned char val);
+void ym2612_init(unsigned char* cmdbus, unsigned char* databus, unsigned char* datadir);
 
-void glue2612_get1reg(unsigned char reg, unsigned char reg);
-void glue2612_get2reg(unsigned char reg, unsigned char reg);
 
-void glue2612_getreg(unsigned char reg, unsigned char val, unsigned char part);
+void ym2612_select(unsigned char addr, unsigned char part);
+void ym2612_write(unsigned char addr, unsigned char part);
+unsigned char ym2612_read(unsigned char addr, unsigned char part);
+
+unsigned char ym2612_getreg(unsigned char addr, unsigned char part);
+void ym2612_setreg(unsigned char addr, unsigned char regval, unsigned char part);
