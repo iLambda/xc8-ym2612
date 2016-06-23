@@ -21,6 +21,9 @@
 #define YM2612_REG_DACDATA     0x2A
 #define YM2612_REG_DACENBL     0x2B
 
+#define YM2612_PART_1          0x00
+#define YM2612_PART_2          0x01
+
 // OP1 REGISTERS
 // CH1 REGISTERS
 #define YM2612_REG_CH1OP1_DETMUL      0x30
@@ -214,7 +217,7 @@
 #define YM2612_REG_CH1OP4_UNDEF       0x9C
 // CH2 REGISTERS
 #define YM2612_REG_CH2OP4_DETMUL      0x3D
-#define YM2612_REG_CH2OP4_DT1         0x3D  
+#define YM2612_REG_CH2OP4_DT1         0x3D
 #define YM2612_REG_CH2OP4_MUL         0x3D
 #define YM2612_REG_CH2OP4_TOTLVL      0x4D
 #define YM2612_REG_CH2OP4_TL          0x4D
