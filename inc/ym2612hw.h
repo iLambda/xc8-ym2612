@@ -28,7 +28,6 @@
 #define YM2612_REG_CH1OP1_DETMUL      0x30
 #define YM2612_REG_CH1OP1_DT1         0x30
 #define YM2612_REG_CH1OP1_MUL         0x30
-#define YM2612_REG_CH1OP1_TOTLVL      0x40
 #define YM2612_REG_CH1OP1_TL          0x40
 #define YM2612_REG_CH1OP1_RATEH       0x50
 #define YM2612_REG_CH1OP1_RS          0x50
@@ -250,3 +249,27 @@
 #define YM2612_REG_CH3OP4_D1L         0x8E
 #define YM2612_REG_CH3OP4_RR          0x8E
 #define YM2612_REG_CH3OP4_UNDEF       0x9E
+
+// CH1-3 REGISTERS
+#define YM2612_REG_CH1_FREQL          0xA0
+#define YM2612_REG_CH1_FREQH          0xA4
+#define YM2612_REG_CH2_FREQL          0xA1
+#define YM2612_REG_CH2_FREQH          0xA5
+#define YM2612_REG_CH3_FREQL          0xA2
+#define YM2612_REG_CH3_FREQH          0xA6
+#define YM2612_REG_CH3OP1_FREQL          0xA2
+#define YM2612_REG_CH3OP1_FREQH          0xA6
+#define YM2612_REG_CH3OP2_FREQL          0xA8
+#define YM2612_REG_CH3OP2_FREQH          0xAC
+#define YM2612_REG_CH3OP3_FREQL          0xA9
+#define YM2612_REG_CH3OP3_FREQH          0xAD
+#define YM2612_REG_CH3OP4_FREQL          0xAA
+#define YM2612_REG_CH3OP4_FREQH          0xAE
+
+#define YM2612_REG_CH1_ALGO          0xB0
+#define YM2612_REG_CH2_ALGO          0xB1
+#define YM2612_REG_CH3_ALGO          0xB2
+
+#define YM2612_REG_CH1_STEREOSENSIVITY          0xB4
+#define YM2612_REG_CH2_STEREOSENSIVITY          0xB5
+#define YM2612_REG_CH3_STEREOSENSIVITY          0xB6
