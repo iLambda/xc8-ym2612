@@ -10,17 +10,17 @@
 #define YM2612_D1L              0xF0
 #define YM2612_RR               0x0F
 
-#define YM2612_CHANNEL_1        0x01
-#define YM2612_CHANNEL_2        0x02
-#define YM2612_CHANNEL_3        0x03
-#define YM2612_CHANNEL_4        0x04
-#define YM2612_CHANNEL_5        0x05
-#define YM2612_CHANNEL_6        0x06
+#define YM2612_CHANNEL_1        0x00
+#define YM2612_CHANNEL_2        0x01
+#define YM2612_CHANNEL_3        0x02
+#define YM2612_CHANNEL_4        0x03
+#define YM2612_CHANNEL_5        0x04
+#define YM2612_CHANNEL_6        0x05
 
-#define YM2612_OPERATOR_1       0x01
-#define YM2612_OPERATOR_2       0x02
-#define YM2612_OPERATOR_3       0x03
-#define YM2612_OPERATOR_4       0x04
+#define YM2612_OPERATOR_1       0x00
+#define YM2612_OPERATOR_2       0x01
+#define YM2612_OPERATOR_3       0x02
+#define YM2612_OPERATOR_4       0x03
 
 #define YM2612_OPERATORMASK_1       0x01
 #define YM2612_OPERATORMASK_2       0x02
@@ -141,7 +141,7 @@ void ym2612_setEnvelopeAttack(unsigned char channel, unsigned char operator, uns
 void ym2612_setEnvelopeDecay(unsigned char channel, unsigned char operator, unsigned char am, unsigned char decayrate1);
 void ym2612_setEnvelopeSustain(unsigned char channel, unsigned char operator, unsigned char decayrate2);
 void ym2612_setEnvelopeRelease(unsigned char channel, unsigned char operator, unsigned char secondaryamplitude, unsigned char releaserate);
-void ym2612_setFrequency(unsigned char channel, unsigned char octave, unsigned char frequency);
-void ym2612_setFrequency36(unsigned char channel, unsigned char octave, unsigned char frequency);
+void ym2612_setFrequency(unsigned char channel, unsigned int frequency);
+void ym2612_setFrequency36(unsigned char channel, unsigned char operator, unsigned int frequency);
 void ym2612_setAlgorithm(unsigned char channel, unsigned char algorithm, unsigned char feedback);
 void ym2612_setStereoSensivity(unsigned char channel, unsigned char stereosensivity);

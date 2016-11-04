@@ -49,36 +49,95 @@ void ym2612_setChannel36(unsigned char enable){
 }
 
 void ym2612_setKeyOnOff(unsigned char channel, unsigned char operatormask){
-  unsigned char chn = channel <= 3 ? channel - 1 : channel;
+  unsigned char chn = channel <= 3 ? channel : channel + 1;
   ym2612_write(YM2612_REG_KEYONOFF, YM2612_PART_1, ((operatormask & 0x0F) << 4) | (chn & 0x07));
 }
 
 void ym2612_setDAC(unsigned char enable){
-  ym2612_write(YM2612_REG_DACENBL, enable ? YM2612_DAC_ON : YM2612_DAC_ON);
+  ym2612_write(YM2612_REG_DACENBL, YM2612_PART_1, enable ? YM2612_DAC_ON : YM2612_DAC_ON);
 }
 
 void ym2612_setDACData(unsigned char data){
-  ym2612_write(YM2612_REG_DACDATA, data);
+  ym2612_write(YM2612_REG_DACDATA, YM2612_PART_1, data);
 }
 
-void ym2612_setOperatorFreq(unsigned char channel, unsigned char operator, unsigned char freq){}
+void ym2612_setOperatorFreq(unsigned char channel, unsigned char operator, unsigned char freq){
+  unsigned char addr = YM2612_REG_CH1OP1_DETMUL + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(addr, part, freq & 0x7F);
+}
 
-void ym2612_setEnvelope(unsigned char channel, unsigned char operator, ymenvelope_t envelope){}
+void ym2612_setEnvelope(unsigned char channel, unsigned char operator, ymenvelope_t envelope){
+  unsigned char daddr = (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  // TODO : envelope.tl must be computed in binary (faster?)
+  ym2612_write(daddr + YM2612_REG_CH1OP1_TL, part, YM2612_TL_MAX - (envelope.tl & YM2612_TL_MAX));
+  ym2612_write(daddr + YM2612_REG_CH1OP1_RATEH, part, ((envelope.rs & 0x03) << 6) | (envelope.ar & 0x1F));
+  ym2612_write(daddr + YM2612_REG_CH1OP1_RATEMH, part, (envelope.am & YM2612_AM_ON) | (envelope.d1r & 0x1F));
+  ym2612_write(daddr + YM2612_REG_CH1OP1_RATEML, part, envelope.d2r & 0x1F);
+  ym2612_write(daddr + YM2612_REG_CH1OP1_RATEL, part, (envelope.rr & 0x1F) | ((envelope.d1l & 0x1F) << 4));
+}
 
-void ym2612_setEnvelopeTotalLevel(unsigned char channel, unsigned char operator, unsigned char level){}
+void ym2612_setEnvelopeTotalLevel(unsigned char channel, unsigned char operator, unsigned char level){
+  unsigned char addr = YM2612_REG_CH1OP1_TL + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  // TODO : envelope.tl must be computed in binary (faster?)
+  ym2612_write(addr, part, YM2612_TL_MAX - (envelope.tl & YM2612_TL_MAX));
+}
 
-void ym2612_setEnvelopeAttack(unsigned char channel, unsigned char operator, unsigned char ratescaling, unsigned char attackrate){}
+void ym2612_setEnvelopeAttack(unsigned char channel, unsigned char operator, unsigned char ratescaling, unsigned char attackrate){
+  unsigned char addr = YM2612_REG_CH1OP1_RATEH + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(addr, part, ((ratescaling & 0x03) << 6) | (attackrate & 0x1F));
+}
 
-void ym2612_setEnvelopeDecay(unsigned char channel, unsigned char operator, unsigned char am, unsigned char decayrate1){}
+void ym2612_setEnvelopeDecay(unsigned char channel, unsigned char operator, unsigned char am, unsigned char decayrate1){
+  unsigned char addr = YM2612_REG_CH1OP1_RATEMH + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(addr, part, (am & YM2612_AM_ON) | (decayrate1 & 0x1F));
+}
 
-void ym2612_setEnvelopeSustain(unsigned char channel, unsigned char operator, unsigned char decayrate2){}
+void ym2612_setEnvelopeSustain(unsigned char channel, unsigned char operator, unsigned char decayrate2){
+  unsigned char addr = YM2612_REG_CH1OP1_RATEML + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(addr, part, decayrate2 & 0x1F);
+}
 
-void ym2612_setEnvelopeRelease(unsigned char channel, unsigned char operator, unsigned char secondaryamplitude, unsigned char releaserate){}
+void ym2612_setEnvelopeRelease(unsigned char channel, unsigned char operator, unsigned char secondaryamplitude, unsigned char releaserate) {
+  unsigned char addr = YM2612_REG_CH1OP1_RATEL + (channel % 3) + (operator * 4);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(addr, part, (releaserate & 0x1F) | ((secondaryamplitude & 0x1F) << 4));
+}
 
-void ym2612_setFrequency(unsigned char channel, unsigned char octave, unsigned char frequency){}
+void ym2612_setFrequency(unsigned char channel, unsigned int frequency){
+  //TODO : how does frequency work?
 
-void ym2612_setFrequency36(unsigned char channel, unsigned char octave, unsigned char frequency){}
+  unsigned char addrlow = YM2612_REG_CH1_FREQL + (channel % 3);
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  // write high THEN low
+  ym2612_write(addrlow + 0x04, part, (unsigned char)(frequency & 0xFF));
+  ym2612_write(addrlow, part, (unsigned char)((frequency >> 8) & 0x3F));
+}
 
-void ym2612_setAlgorithm(unsigned char channel, unsigned char algorithm, unsigned char feedback){}
+void ym2612_setFrequency36(unsigned char channel, unsigned char operator, unsigned int frequency){
+    //TODO : how does frequency work?
 
-void ym2612_setStereoSensivity(unsigned char channel, unsigned char stereosensivity){}
+    // check if channel is correct
+    if (channel != YM2612_CHANNEL_3 && channel != YM2612_CHANNEL_6) { return; }
+    // compute addr
+    unsigned char addrlow = operator != YM2612_OPERATOR_1 ? YM2612_REG_CH3OP2_FREQL - 1 + operator : YM2612_REG_CH3OP1_FREQL;
+    unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+    // write high THEN low
+    ym2612_write(addrlow + 0x04, part, (unsigned char)(frequency & 0xFF));
+    ym2612_write(addrlow, part, (unsigned char)((frequency >> 8) & 0x3F));
+}
+
+void ym2612_setAlgorithm(unsigned char channel, unsigned char algorithm, unsigned char feedback){
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(YM2612_REG_CH1_ALGO + (channel % 3), part, (algorithm & 0x07) | ((feedback & 0x07) << 3));
+}
+
+void ym2612_setStereoSensivity(unsigned char channel, unsigned char stereosensivity){
+  unsigned char part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  ym2612_write(YM2612_REG_CH1_STEREOSENSIVITY + (channel % 3), part, stereosensivity & 0xFB);
+}
