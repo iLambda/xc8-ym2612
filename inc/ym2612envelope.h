@@ -1,4 +1,4 @@
-struct ymenvelope_t {
+typedef struct ymenvelope_t {
   // the total level. <128
   unsigned char tl;
   // the rate scaling
@@ -15,7 +15,6 @@ struct ymenvelope_t {
   unsigned char d1l;
   // release rate
   unsigned char rr;
-}
+} ymenvelope_t;
 
-typedef struct ymenvelope_t ymenvelope_t;
 typedef struct ymenvelope_t ymenvelope;
