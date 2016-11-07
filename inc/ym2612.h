@@ -112,6 +112,7 @@
 #define YM2612_FREQ_C
 #define YM2612_FREQ_Cs
 #define YM2612_FREQ_D
+// TODO : tune synth (how analogic)
 
 unsigned char ym2612_getLFO();
 unsigned char ym2612_getChannel36();
