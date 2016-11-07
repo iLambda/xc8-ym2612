@@ -145,8 +145,8 @@ unsigned char ym2612_getEnvelopeAttack(unsigned char channel, unsigned char op);
 unsigned char ym2612_getEnvelopeDecay(unsigned char channel, unsigned char op);
 unsigned char ym2612_getEnvelopeSustain(unsigned char channel, unsigned char op);
 unsigned char ym2612_getEnvelopeRelease(unsigned char channel, unsigned char op);
-unsigned int ym2612_getFrequency(unsigned char channel, unsigned char octave);
-unsigned int ym2612_getFrequency36(unsigned char channel, unsigned char octave);
+unsigned int ym2612_getFrequency(unsigned char channel);
+unsigned int ym2612_getFrequency36(unsigned char channel, unsigned char op);
 unsigned char ym2612_getAlgorithm(unsigned char channel);
 unsigned char ym2612_getStereoSensivity(unsigned char channel);
 

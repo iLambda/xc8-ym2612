@@ -231,9 +231,32 @@ unsigned char ym2612_getEnvelopeRelease(unsigned char channel, unsigned char op)
   return ym2612_read(addr, part);
 }
 
-unsigned int ym2612_getFrequency(unsigned char channel, unsigned char octave){}
+unsigned int ym2612_getFrequency(unsigned char channel) {
+  unsigned char addrlow, part, datlow, dathigh;
+  addrlow = YM2612_REG_CH1_FREQL + (channel % 3);
+  part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
 
-unsigned int ym2612_getFrequency36(unsigned char channel, unsigned char octave){}
+  // read high THEN low
+  dathigh = ym2612_read(addrlow + 0x04, part);
+  datlow = ym2612_read(addrlow, part);
+  // return integer
+  return (unsigned int)(datahigh << 8) | dathigh;
+}
+
+unsigned int ym2612_getFrequency36(unsigned char channel, unsigned char op){
+  unsigned char addrlow, part, datlow, dathigh;
+  // check if channel is correct
+  if (channel != YM2612_CHANNEL_3 && channel != YM2612_CHANNEL_6) { return 0; }
+
+  // compute addr
+  addrlow = op != YM2612_OPERATOR_1 ? YM2612_REG_CH3OP2_FREQL - 1 + op : YM2612_REG_CH3OP1_FREQL;
+  part = channel < 3 ? YM2612_PART_1 : YM2612_PART_2;
+  // read high THEN low
+  dathigh = ym2612_read(addrlow + 0x04, part);
+  datlow = ym2612_read(addrlow, part);
+  // return integer
+  return (unsigned int)(datahigh << 8) | dathigh;
+}
 
 unsigned char ym2612_getAlgorithm(unsigned char channel){
   unsigned char addr, part;
