@@ -3,3 +3,11 @@ SEGA2.DOC.pdf
 *.c.ini
 *.cp
 *.h.ini
+.log
+.user.dic
+.dct
+.cfg
+.brk
+.bmk
+.mcl
+.asm
