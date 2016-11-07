@@ -1,14 +1,14 @@
 #include "ym2612glue.h"
 
-void ym2612_init(ymcontrolbus_t* cb, ymcontroldir_t* cd, unsigned char* db, unsigned char* dd) {
+void ym2612_init(unsigned char* cb, unsigned char* db, unsigned char* db, unsigned char* db) {
   // Save buses
-  controlbus = cb;
+  controlbus = (ymcontrolbus_t*)(void*)cb;
   controldir = cd;
   databus = db;
   datadir = dd;
 
   // Direction setup
-  *((unsigned char*)(void*)controldir) = 0x00;
+  *controldir = 0x00;
   *datadir = 0x00;
 
   // Bus setup
