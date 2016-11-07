@@ -1,3 +1,6 @@
+#ifndef YM2612_INCLUDE_ENVELOPE
+#define YM2612_INCLUDE_ENVELOPE
+
 typedef struct ymenvelope_t {
   // the total level. <128
   unsigned char tl;
@@ -18,3 +21,5 @@ typedef struct ymenvelope_t {
 } ymenvelope_t;
 
 typedef struct ymenvelope_t ymenvelope;
+
+#endif

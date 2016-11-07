@@ -1,6 +1,6 @@
 #include "ym2612glue.h"
 
-void ym2612_init(unsigned char* cb, unsigned char* db, unsigned char* db, unsigned char* db) {
+unsigned char ym2612_init(unsigned char* cb, unsigned char* cd, unsigned char* db, unsigned char* dd) {
   // Save buses
   controlbus = (ymcontrolbus_t*)(void*)cb;
   controldir = cd;
@@ -53,7 +53,7 @@ void ym2612_write(unsigned char reg, unsigned char part, unsigned char dat) {
   // cs low
   controlbus->cs = 0;
   // set data
-  *databus = dat;
+  *databus = reg;
   // wait
   delay_us(1);
   // write data
@@ -92,6 +92,8 @@ void ym2612_write(unsigned char reg, unsigned char part, unsigned char dat) {
 }
 
 unsigned char ym2612_read(unsigned char reg, unsigned char part) {
+  unsigned char dat;
+  
   // set data as input
   *datadir = 0x00;
 
@@ -105,7 +107,7 @@ unsigned char ym2612_read(unsigned char reg, unsigned char part) {
   // cs low
   controlbus->cs = 0;
   // set data
-  *databus = dat;
+  *databus = reg;
   // wait
   delay_us(1);
   // write data
@@ -132,7 +134,6 @@ unsigned char ym2612_read(unsigned char reg, unsigned char part) {
   // wait
   delay_us(5);
   // get data
-  unsigned char dat;
   dat = *databus;
   // wait
   delay_us(2);

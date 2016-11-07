@@ -1,3 +1,6 @@
+#ifndef YM2612_INCLUDE_
+#define YM2612_INCLUDE_
+
 #ifndef NULL
 #define NULL 0
 #endif
@@ -146,3 +149,5 @@ void ym2612_setFrequency(unsigned char channel, unsigned int frequency);
 void ym2612_setFrequency36(unsigned char channel, unsigned char op, unsigned int frequency);
 void ym2612_setAlgorithm(unsigned char channel, unsigned char algorithm, unsigned char feedback);
 void ym2612_setStereoSensivity(unsigned char channel, unsigned char stereosensivity);
+
+#endif
