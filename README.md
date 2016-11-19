@@ -1,4 +1,4 @@
-# ym2612-glue
+# xc8-ym2612
 
 ## description
 
