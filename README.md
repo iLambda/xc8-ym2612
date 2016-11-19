@@ -2,14 +2,14 @@
 
 ## description
 
-This C library for PIC18F allows you to control a [Yamaha YM2612](https://en.wikipedia.org/wiki/Yamaha_YM2612) in order to make sound.
+This XC8 library for PIC18F allows you to control a [Yamaha YM2612](https://en.wikipedia.org/wiki/Yamaha_YM2612) in order to make sound.
+Adapting this library to other compilers (C18, MikroC) should be relatively easy.
 
 ## how does it work ?
 
 The chip has internal registers that describe how the sound is generated. A list of different registers can be found on the [SEGA2.DOC file](http://www.smspower.org/maxim/Documents/YM2612#reg22).
 
 ## api
-
 
 
 ## technical data
