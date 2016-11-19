@@ -5,6 +5,10 @@
 #define NULL 0
 #endif
 
+#include <xc.h>
+#include <stdint.h>
+#include <stdlib.h>
+
 /*
  *  REGISTERS & COMMANDS
  */
@@ -397,64 +401,64 @@ typedef struct {
 
 typedef struct ymenvelope_t {
   // the total level. <128
-  unsigned char tl;
+  uint8_t tl;
   // the rate scaling
-  unsigned char rs;
+  uint8_t rs;
   // the attack rate
-  unsigned char ar;
+  uint8_t ar;
   // the first decay rate
-  unsigned char d1r;
+  uint8_t d1r;
   // amplitude modulation enable
-  unsigned char am;
+  uint8_t am;
   // secondary decay rate
-  unsigned char d2r;
+  uint8_t d2r;
   // secondary amplitude
-  unsigned char d1l;
+  uint8_t d1l;
   // release rate
-  unsigned char rr;
+  uint8_t rr;
 } ymenvelope_t;
 
 
-static unsigned char* controldir = NULL;
+static uint8_t* controldir = NULL;
 static ymcontrolbus_t* controlbus = NULL;
-static unsigned char* databus = NULL;
-static unsigned char* datadir = NULL;
+static uint8_t* databus = NULL;
+static uint8_t* datadir = NULL;
 
-unsigned char ym2612_init(unsigned char* controlbus, unsigned char* controldir, unsigned char* databus, unsigned char* datadir);
-void ym2612_write(unsigned char reg, unsigned char part, unsigned char dat);
-unsigned char ym2612_read(unsigned char reg, unsigned char part);
+uint8_t ym2612_init(uint8_t* controlbus, uint8_t* controldir, uint8_t* databus, uint8_t* datadir);
+void ym2612_write(uint8_t reg, uint8_t part, uint8_t dat);
+uint8_t ym2612_read(uint8_t reg, uint8_t part);
 
-unsigned char ym2612_getLFO();
-unsigned char ym2612_getChannel36();
-unsigned char ym2612_getDAC();
-unsigned char ym2612_getDACData();
-unsigned char ym2612_getOperatorFreq(unsigned char channel, unsigned char op);
-void ym2612_getEnvelope(unsigned char channel, unsigned char op, ymenvelope_t* envelope);
-unsigned char ym2612_getEnvelopeTotalLevel(unsigned char channel, unsigned char op);
-unsigned char ym2612_getEnvelopeAttack(unsigned char channel, unsigned char op);
-unsigned char ym2612_getEnvelopeDecay(unsigned char channel, unsigned char op);
-unsigned char ym2612_getEnvelopeSustain(unsigned char channel, unsigned char op);
-unsigned char ym2612_getEnvelopeRelease(unsigned char channel, unsigned char op);
-unsigned int ym2612_getFrequency(unsigned char channel);
-unsigned int ym2612_getFrequency36(unsigned char channel, unsigned char op);
-unsigned char ym2612_getAlgorithm(unsigned char channel);
-unsigned char ym2612_getStereoSensivity(unsigned char channel);
+uint8_t ym2612_getLFO();
+uint8_t ym2612_getChannel36();
+uint8_t ym2612_getDAC();
+uint8_t ym2612_getDACData();
+uint8_t ym2612_getOperatorFreq(uint8_t channel, uint8_t op);
+void ym2612_getEnvelope(uint8_t channel, uint8_t op, ymenvelope_t* envelope);
+uint8_t ym2612_getEnvelopeTotalLevel(uint8_t channel, uint8_t op);
+uint8_t ym2612_getEnvelopeAttack(uint8_t channel, uint8_t op);
+uint8_t ym2612_getEnvelopeDecay(uint8_t channel, uint8_t op);
+uint8_t ym2612_getEnvelopeSustain(uint8_t channel, uint8_t op);
+uint8_t ym2612_getEnvelopeRelease(uint8_t channel, uint8_t op);
+uint16_t ym2612_getFrequency(uint8_t channel);
+uint16_t ym2612_getFrequency36(uint8_t channel, uint8_t op);
+uint8_t ym2612_getAlgorithm(uint8_t channel);
+uint8_t ym2612_getStereoSensivity(uint8_t channel);
 
-void ym2612_setLFO(unsigned char enable, unsigned char frequency);
-void ym2612_setChannel36(unsigned char enable);
-void ym2612_setKeyOnOff(unsigned char channel, unsigned char operatormask);
-void ym2612_setDAC(unsigned char enable);
-void ym2612_setDACData(unsigned char dat);
-void ym2612_setOperatorFreq(unsigned char channel, unsigned char op, unsigned char freq);
-void ym2612_setEnvelope(unsigned char channel, unsigned char op, ymenvelope_t envelope);
-void ym2612_setEnvelopeTotalLevel(unsigned char channel, unsigned char op, unsigned char level);
-void ym2612_setEnvelopeAttack(unsigned char channel, unsigned char op, unsigned char ratescaling, unsigned char attackrate);
-void ym2612_setEnvelopeDecay(unsigned char channel, unsigned char op, unsigned char am, unsigned char decayrate1);
-void ym2612_setEnvelopeSustain(unsigned char channel, unsigned char op, unsigned char decayrate2);
-void ym2612_setEnvelopeRelease(unsigned char channel, unsigned char op, unsigned char secondaryamplitude, unsigned char releaserate);
-void ym2612_setFrequency(unsigned char channel, unsigned int frequency);
-void ym2612_setFrequency36(unsigned char channel, unsigned char op, unsigned int frequency);
-void ym2612_setAlgorithm(unsigned char channel, unsigned char algorithm, unsigned char feedback);
-void ym2612_setStereoSensivity(unsigned char channel, unsigned char stereosensivity);
+void ym2612_setLFO(uint8_t enable, uint8_t frequency);
+void ym2612_setChannel36(uint8_t enable);
+void ym2612_setKeyOnOff(uint8_t channel, uint8_t operatormask);
+void ym2612_setDAC(uint8_t enable);
+void ym2612_setDACData(uint8_t dat);
+void ym2612_setOperatorFreq(uint8_t channel, uint8_t op, uint8_t freq);
+void ym2612_setEnvelope(uint8_t channel, uint8_t op, ymenvelope_t envelope);
+void ym2612_setEnvelopeTotalLevel(uint8_t channel, uint8_t op, uint8_t level);
+void ym2612_setEnvelopeAttack(uint8_t channel, uint8_t op, uint8_t ratescaling, uint8_t attackrate);
+void ym2612_setEnvelopeDecay(uint8_t channel, uint8_t op, uint8_t am, uint8_t decayrate1);
+void ym2612_setEnvelopeSustain(uint8_t channel, uint8_t op, uint8_t decayrate2);
+void ym2612_setEnvelopeRelease(uint8_t channel, uint8_t op, uint8_t secondaryamplitude, uint8_t releaserate);
+void ym2612_setFrequency(uint8_t channel, uint16_t frequency);
+void ym2612_setFrequency36(uint8_t channel, uint8_t op, uint16_t frequency);
+void ym2612_setAlgorithm(uint8_t channel, uint8_t algorithm, uint8_t feedback);
+void ym2612_setStereoSensivity(uint8_t channel, uint8_t stereosensivity);
 
 #endif
